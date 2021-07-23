@@ -51,6 +51,26 @@
       </div>
     </section>
     <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256/build/sha256.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+    // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAdJ_403iw2UpvhX2U5v3FYno8_zn9yrJg",
+        authDomain: "secret-messaging-app-4395e.firebaseapp.com",
+        databaseURL: "https://secret-messaging-app-4395e-default-rtdb.firebaseio.com",
+        projectId: "secret-messaging-app-4395e",
+        storageBucket: "secret-messaging-app-4395e.appspot.com",
+        messagingSenderId: "320422455900",
+        appId: "1:320422455900:web:14082e5245476ea4555499"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
     <script src="js/writeMessage.js"></script>
   </body>
 

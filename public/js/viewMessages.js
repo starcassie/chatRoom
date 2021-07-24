@@ -35,7 +35,7 @@ function validateMessages(messages) {
                 "password": sha256(passcodeAttempt),
                 "name": currentName
             })
-            renderMessageAsHTML(["you made a chat room", currentName]);
+            renderMessageAsHTML([["you made a chat room", currentName]]);
             if (wrong == 5) {
                 const passField = document.querySelector("#passcode")
                 passField.disabled = true;
@@ -57,13 +57,14 @@ function renderMessageAsHTML(messageContent) {
     passcodeInput.value = "";
     const messageDiv = document.querySelector("#messageDisplay");
     const messageDisplay = document.querySelector("#messageList");
-    messageDisplay.innerHTML = "";
+    messageDisplay.innerHTML = `<li></li>`;
     console.log(messageDisplay);    
     messageContent.forEach( item => {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(item[0] + " - " + item[1]));
         messageDisplay.appendChild(li);
     })
+    console.log(messageDisplay);
     messageDiv.style.display = "block";
 }
 

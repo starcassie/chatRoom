@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -15,43 +14,40 @@
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-</head>
+  </head>
 
   <body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-menu is-active">
-        <a class="navbar-item" href="viewMessages.html">
-          View Your Messages
-        </a>
-      </div>
-    </nav>
-    <h1 class="title has-text-centered">Secret Messaging App</h1>
     <section class="hero is-fullheight">
-      <div class="hero-body has-text-centered">
-        <div class="login">
-          <img src="https://image.freepik.com/free-vector/colorful-speech-bubbles-set_74855-6314.jpg" width="325px" />
-          <form action="javascript:void(0);">
-            <div class="field">
-              <div class="control">
-                <input class="input is-medium is-rounded" type="text" id="passcode" placeholder="Enter a passcode" required />
-              </div>
-            </div>
-            <div class="field">
-              <div class="control">
-                <textarea class="textarea is-medium is-rounded" type="text" id="message" placeholder="Share a secret message with your friend!" required></textarea>
-              </div>
-            </div>
-            <br />
-            <button class="button is-block is-fullwidth is-primary is-medium is-rounded" onclick="sendMessage()">
-              Send Message
-            </button>
-          </form>
-          <br>
+        <div class="content">
+            <h2 class="has-text-centered mt-6"id="topText">Enter a chat room!</h2>
         </div>
-      </div>
+        <div id="passcodeInput" class="hero-body has-text-centered">
+            <div class="login">
+            <form action="javascript:void(0);">
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-medium is-rounded" type="text" placeholder="Enter your name" id="name" />
+                        <input class="input is-medium is-rounded" type="text" placeholder="What's the passcode?" id="passcode" required />
+                    </div>
+                </div>
+                <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit" id="viewMsg" onclick="getMessages()">
+                    Enter
+                </button>
+            </form>
+            <br>
+            </div>
+        </div>
+        <section class="container" id="messageDisplay">
+            <ul class="card" id="messageList">
+            </ul>
+            <input class="input is-medium is-rounded" type="text" placeholder="Enter your message" id="newMessage"/>
+            <button class="button is-block is-primary is-medium is-rounded" onclick="send()">send</button>
+            <button class="button is-block is-primary is-medium is-rounded" onclick="back()">back to password entry</button>
+        </section>
+
     </section>
     <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256/build/sha256.min.js"></script>
-    <script src="js/writeMessage.js"></script>
+    <script src="js/chatRoom.js"></script>
   </body>
 
 </html>

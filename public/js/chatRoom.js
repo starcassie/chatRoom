@@ -1,8 +1,10 @@
-let wrong = 0;
+// holds the current password for the room the user is in
 let currentPass = "";
+// holds the user's current name
 let currentName = "";
 
 function getMessages() {
+    // gets the messages from firebase
     const messagesRef = firebase.database().ref();
     messagesRef.on("value", (snapshot) => {
         const messages = snapshot.val();
@@ -11,6 +13,9 @@ function getMessages() {
 }
 
 function validateMessages(messages) {
+    // checks the messages to find the ones that match the current password
+    // if the password is valid and not in use it creates a new room
+    // if the password is in use it creates an array with the messages and names
     const passcodeAttempt = document.querySelector("#passcode").value;
     currentPass = passcodeAttempt;
     const name = document.querySelector("#name").value;
@@ -28,20 +33,13 @@ function validateMessages(messages) {
         }
     }
     if (passwordCorrect == false) {
-        if (validPass(passcodeAttempt) && passcodeAttempt.length > 5) {
-            wrong++;
+        if (validPass(passcodeAttempt) && passcodeAttempt.length >= 5) {
             firebase.database().ref().push({
                 "message": "you made a chat room",
                 "password": sha256(passcodeAttempt),
                 "name": currentName
             })
             renderMessageAsHTML([["you made a chat room", currentName]]);
-            if (wrong == 5) {
-                const passField = document.querySelector("#passcode")
-                passField.disabled = true;
-                const button = document.querySelector("#viewMsg");
-                button.disabled = true;
-            }
         } else {
             alert("your password needs to have an uppercase letter & number & has to be at least 5 long");
         }
@@ -51,10 +49,11 @@ function validateMessages(messages) {
 }
 
 function renderMessageAsHTML(messageContent) {
+    // takes in the messages and the names and displays them
     console.log(messageContent);
+    document.querySelector("#topText").innerHTML = "You entered a chat room!";
     const passcodeInput = document.querySelector("#passcodeInput");
     passcodeInput.style.display = "none";
-    passcodeInput.value = "";
     const messageDiv = document.querySelector("#messageDisplay");
     const messageDisplay = document.querySelector("#messageList");
     messageDisplay.innerHTML = `<li></li>`;
@@ -65,27 +64,33 @@ function renderMessageAsHTML(messageContent) {
         messageDisplay.appendChild(li);
     })
     console.log(messageDisplay);
-    messageDiv.style.display = "block";
+    messageDiv.style.display = "flex";
 }
 
 function back() {
+    // takes one back to the chat room entry page
     const passcodeInput = document.querySelector("#passcodeInput");
-    passcodeInput.style.display = "block";
+    passcodeInput.style.display = "flex";
     const messageDiv = document.querySelector("#messageDisplay");
     messageDiv.style.display = "none";
+    document.querySelector("#topText").innerHTML = "Enter a chat room!";
 }
 
 function send() {
+    // adds the message to the database
     const message = document.querySelector("#newMessage");
     console.log(message.value);
-    firebase.database().ref().push({
-        "message": message.value,
-        "password": sha256(currentPass),
-        "name": currentName
-    })
-    document.querySelector("#newMessage").value = "";
+    if (message != "") {
+        firebase.database().ref().push({
+            "message": message.value,
+            "password": sha256(currentPass),
+            "name": currentName
+        })
+        document.querySelector("#newMessage").value = "";
+    }
 }
 
 function validPass(str) {
+    // ensures the password has a capital letter and a num
     return (/[A-Z]/.test(str) && /[0-9]/.test(str));
 }
